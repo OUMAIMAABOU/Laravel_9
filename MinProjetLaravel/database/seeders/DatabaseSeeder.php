@@ -1,10 +1,18 @@
 <?php
 
 namespace Database\Seeders;
+use App\Models\Categorie;
+use App\Models\Tag;
+use App\Models\User;
+
+
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -14,11 +22,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            CategorieSeeder::class,
+            TagSeeder::class,
+            UserSeeder::class
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+
+        ]);
+        $admin = tag::create([
+            'name' => 'Admin'
+       
+        ]);
+        $admin = User::create([
+            'name' => 'Admin',
+            'email' => 'admin@ajicod.com',
+            // 'avatar' => '2022/05/avatar-31.png',
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10)
+        ]);
+      
+      
     }
 }
