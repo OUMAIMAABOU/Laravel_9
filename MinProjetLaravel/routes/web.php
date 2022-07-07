@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +17,40 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/Post', function () {
-    return view('Post');
-});
+// Route::get('/Post', function() {
+    
+//     return view('Post')->with('CategorieController@index')->
+//                  with('PostController@index');
+//  });
+// Route::get('/TablePost', function () {
+//     return view('TablePost');
+// });
+// Route::get('/Post', function () {
+//     return view('Post');
+  
+// });
+// Route::GET('/Post','PostController@index');
+// Route::GET('/TablePost','PostController@index','CategorieController@index');
+
+// Route::GET('/Post','CategorieController@index');
+// Route::resource('Post','TagController');
+// Route::resource('Post','CategorieController');
+// Route::resource('Post','CategorieController');
+Route::resource('posts',PostController::class);
+Route::resource('TablePost',PostController::class);
+
+
+// Route::POST('/Post','PostController@show');
+
+
+
+
+
+
+
+
+
+
 
 Route::middleware([
     'auth:sanctum',

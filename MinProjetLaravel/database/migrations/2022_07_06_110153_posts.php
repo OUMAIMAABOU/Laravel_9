@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('image');
             $table->string('publish');
             $table->string('status');
-            // $table->boolean('publish');
             $table->foreignId('categorie_id')->references('id')->on('categories')->onDelete('cascade')->nullable();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->nullable();
             $table->timestamps();

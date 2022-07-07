@@ -14,9 +14,10 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $tag=Tag::all();
+        return view('Post',['tag'=>$tag]);
 
+    }
     /**
      * Show the form for creating a new resource.
      *

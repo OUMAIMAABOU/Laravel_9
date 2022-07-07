@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -14,7 +16,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $post=Post::all();
+        // // $post=Categorie::all();
+        // $post=Post::with('categories')->get();
+        // return view('TablePost', compact('posts')); 
+        return view('TablePost',['post'=>$post]);
+        // return view('TablePost', compact('post', 'categories'));
     }
 
     /**
@@ -24,7 +31,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $posts = Post::all();
+        $categories = Categorie::all();
+        $tags = Tag::all();
+        return view('addPost', compact('posts', 'categories', 'tags'));
+
     }
 
     /**
@@ -35,7 +46,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Post = new Post();
+        $Post->title=$request->input('title');
+        $Post->categorie_id=$request->input('Categorie');
+        // $Post->tag=$request->input('tag');
+        $Post->slug="test";
+
+        $Post->description=$request->input('Discription');
+        $Post->image=$request->input('image');
+        $Post->publish=$request->input('Publish');
+        $Post->user_id=11;
+
+        $Post->save(); 
     }
 
     /**
