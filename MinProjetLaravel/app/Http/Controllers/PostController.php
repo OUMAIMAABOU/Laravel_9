@@ -17,11 +17,7 @@ class PostController extends Controller
     public function index()
     {
         $post=Post::all();
-        // // $post=Categorie::all();
-        // $post=Post::with('categories')->get();
-        // return view('TablePost', compact('posts')); 
         return view('TablePost',['post'=>$post]);
-        // return view('TablePost', compact('post', 'categories'));
     }
 
     /**
@@ -49,7 +45,7 @@ class PostController extends Controller
         $Post = new Post();
         $Post->title=$request->input('title');
         $Post->categorie_id=$request->input('Categorie');
-        // $Post->tag=$request->input('tag');
+        $Post->tag_id =$request->input('tag');
         $Post->slug="test";
 
         $Post->description=$request->input('Discription');
@@ -102,6 +98,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route('posts.index')
+             ->withSuccess(__('Post delete successfully.'));
     }
 }
