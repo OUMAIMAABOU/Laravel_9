@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
      <script src="https://cdn.tailwindcss.com"></script>
 
@@ -10,9 +19,9 @@
 </head>
 <body>
 <div class="w-full flex flex-col justify-center items-center mt-9 ">
-    <form action="{{ url('/TablePost') }}" method="POST"  id="step"  class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 py-8">
+    <form action=" {{ url('/edite/'.$posts->id) }}" method="POST"  id="step"  class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 py-8">
     {{csrf_field()}}
-  
+        
         <h1 class="text-center font-bold text-xl m-5 text-blue-500"> Add New Poste  </h1>
 <div   id="step1">
         <h1 class="text-center font-bold text-xl m-5 text-blue-500">Step 1</h1>
@@ -44,9 +53,7 @@
        
      <div> <button type="button" id="nextBtn"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5" onclick=" next()">Next</button>
      </div>
-  </div> <div style="text-align:center;margin-top:40px;">
- 
-    <div id="step2">
+
     <h1 class="text-center font-bold text-xl m-5 text-blue-500">Step 2</h1>
 
 <div>
@@ -77,48 +84,8 @@
     </form>
     </div>
  
-
-   <script >
-       document.getElementById('step2').hidden=true;
- 
-function next(){
-
-document.getElementById('step2').hidden=false;  
-
-document.getElementById('step1').hidden=true;
-
-
-   
-
-
-}
-function prev(){
-
-
-document.getElementById('step2').hidden=true;  
-
-document.getElementById('step1').hidden=false;
-
-
-   
-
-
-}
-function convertToSlug(Text) {
-  return Text.toLowerCase()
-             .replace(/[^\w ]+/g, '')
-             .replace(/ +/g, '-');
-}
-function slug(){
-  return  document.getElementById('slug').innerText=convertToSlug('title') ;
-
-}
-function validation(){
-    if(document.getElementById('title').value!=""||document.getElementById('Categorie').value!=""||document.getElementById('tag').value!=""){
-        document.getElementById('nextBtn').disabled = true;
-    }
-
-}
-</script>
+>
+</body>
+</html>
 </body>
 </html>

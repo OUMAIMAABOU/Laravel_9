@@ -15,7 +15,11 @@
     <main>
         <h1 class=" text-xl font-bold text-center m-5 text-rose-500"> List des contact</h1>
         <div class="flex flex-col justify-between item-center m-5">
-
+        @if ($message = Session::get('success'))
+<div class="alert bg-teal-700">
+<p>{{ $message }}</p>
+</div>
+@endif
             <div class=" flex flex-row-reverse m-5">
                 <a href="{{ url('/posts/create') }}" class=" text-center w-52 m-5  bg-blue-500 text-white font-bold py-2 px-4 "> Poste</a>
             </div>
@@ -32,7 +36,7 @@
                 </thead>
                 @foreach($post as $Poste)
                 {{csrf_field()}}
-
+         
                 <tr>
                     <th class="border border-slate-300 ..."> {{ $Poste -> title }} </th>
                     <th class="border border-slate-300 ..."> {{ $Poste ->categorie_id }}</th>
@@ -41,15 +45,15 @@
 
                     <th class="border border-slate-300 ...">{{ $Poste ->created_at }} </th>
                     <th class="border border-slate-300 ...">
-                        <button>
-                            <button type="submit" name="Update" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5">Update </button>
-                            <form method="post" action="{{route('posts.destroy',$Poste->id)}}">
+                                                     
+                            <a href=" {{url('/edite/'.$Poste -> id)}} " name="Update" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5">Update </a>
+                           <form method="post" action="{{route('posts.destroy',$Poste->id)}}">
                             @method('delete')
                             @csrf                              
                               <button type="submit"  onclick="return confirm('are you sure')" name="delete" class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5">delete </button>
                             </form>
 
-                        </button>
+                    
                     </th>
 
                 </tr>

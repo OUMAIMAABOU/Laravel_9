@@ -6,6 +6,7 @@ use App\Models\Categorie;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Return_;
 
 class PostController extends Controller
 {
@@ -42,6 +43,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        // $request->validate([
+        //     'title' => 'required',
+        //     'image' => 'required',
+        //     'description' => 'required',
+        //     ]);
         $Post = new Post();
         $Post->title=$request->input('title');
         $Post->categorie_id=$request->input('Categorie');
@@ -54,6 +60,8 @@ class PostController extends Controller
         $Post->user_id=11;
 
         $Post->save(); 
+        return redirect()->route('posts.index')
+        ->withSuccess(__('Post add successfully.'));
     }
 
     /**
@@ -74,8 +82,12 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Post $post)
-    {
-        //
+    {       $posts = Post::all();
+        $categories = Categorie::all();
+        $tags = Tag::all();
+        $posts=Post::find($post);
+        return view('edite', compact('posts', 'categories', 'tags'));
+
     }
 
     /**
@@ -87,7 +99,13 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        // $post->edit();
+        // $post = post::find($post->id);
+        // $post->title = $request->name;
+  
+        // $post->save();
+        // return redirect()->route('posts.index')
+        //      ->withSuccess(__('Post delete successfully.'));
     }
 
     /**
