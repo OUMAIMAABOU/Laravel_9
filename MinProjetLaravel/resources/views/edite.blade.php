@@ -19,7 +19,7 @@
 </head>
 <body>
 <div class="w-full flex flex-col justify-center items-center mt-9 ">
-    <form action=" {{ url('/edite/'.$posts->id) }}" method="POST"  id="step"  class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 py-8">
+    <form action=" {{ url('edite/'.$posts->id) }}" method="POST"  id="step"  class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 py-8">
     {{csrf_field()}}
         
         <h1 class="text-center font-bold text-xl m-5 text-blue-500"> Add New Poste  </h1>
@@ -27,14 +27,16 @@
         <h1 class="text-center font-bold text-xl m-5 text-blue-500">Step 1</h1>
         <div  class=" font-bold text-xl ">
             <label for="title" class=" text-gray-700 text-sm font-bold mb-2">Title</label>
-            <input type="text" name ="title" id="title" class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline" onkeypress="slug()">
+            <input type="text" name ="title" id="title" value=" {{$posts -> title}}" class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline" onkeypress="slug()">
         </div>
         <div>
             <label for="Slug">Slug</label>
-            <input type="text" name ="slug" id="slug" class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline" disabled>
+            <input type="text" name ="slug" id="slug"  class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline" disabled>
         </div>
         <div>
             <label for="title"  class=" text-gray-700 text-sm font-bold mb-2">Categorie</label>
+            <input type="text" name ="title" id="title" value=" {{$posts -> categorie_id}}" class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline" onkeypress="slug()">
+
             <select id="Categorie" name="Categorie" class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline">
                 @foreach ($categories as $rows)
               <option value= "{{ $rows->id}}">{{$rows->name}}</option>
@@ -44,6 +46,8 @@
        
         <div>
             <label for="title"  class=" text-gray-700 text-sm font-bold mb-2">tag</label>
+            <input type="text" name ="title" id="title" value=" {{$posts -> tag_id}}" class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline" onkeypress="slug()">
+
             <select id="tag" name="tag" class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline">
             @foreach ($tags as $tag)
               <option value= "{{ $tag->id}}">{{$tag->name}}</option>
@@ -51,14 +55,15 @@
             </select>
         </div>
        
-     <div> <button type="button" id="nextBtn"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5" onclick=" next()">Next</button>
-     </div>
+       
+ 
 
-    <h1 class="text-center font-bold text-xl m-5 text-blue-500">Step 2</h1>
-
+   
 <div>
     <label for="Discription" class="mt-5">Discription</label>
-    <textarea id="Discription" name="Discription" rows="4" class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline" placeholder="Your message..."></textarea>
+    <textarea id="Discription" name="Discription" rows="4"  class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline" placeholder="Your message...">
+    {{$posts -> description}}
+    </textarea>
 
 </div>
 <div>
@@ -68,15 +73,20 @@
 </div>
 <div>
     <label for="Publish"  class=" text-gray-700 text-sm font-bold mb-2">Publish</label>
-    oui <input type="radio" id="Publish" name="Publish" value="Oui" >
+    @if ($posts -> publish == "Oui")
+    oui <input type="radio" id="Publish" name="Publish" value="Oui" checked >
     non <input type="radio" id="Publish" name="Publish" value="No" >
 
+    @endif
+    @if ($posts -> publish == "No")
+    oui <input type="radio" id="Publish" name="Publish" value="Oui"  >
+
+    non <input type="radio" id="Publish" name="Publish" value="No" checked>
+    @endif
 </div>
 <div>
-     <div> <button type="button" id="nextBtn"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5" onclick="prev()">prev</button>
 
-     <button type="submit" name="save" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5">ADD </button>
-     <button  name="cancel" class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5">cancel
+     <button type="submit" name="save" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5">Update </button>
 </div>
     </div>
   

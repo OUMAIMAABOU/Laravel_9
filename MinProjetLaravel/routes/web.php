@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::resource('posts',PostController::class);
 Route::resource('TablePost',PostController::class);
-Route::get('/edite/{post}','PostController@edit');
+Route::get('edite/{post}','PostController@edit');
 
 
 

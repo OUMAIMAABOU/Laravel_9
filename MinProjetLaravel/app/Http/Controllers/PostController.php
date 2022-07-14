@@ -48,6 +48,10 @@ class PostController extends Controller
         //     'image' => 'required',
         //     'description' => 'required',
         //     ]);
+        if($request->hasFile('image')){
+            $request->file('image')->store('images');
+
+        }
         $Post = new Post();
         $Post->title=$request->input('title');
         $Post->categorie_id=$request->input('Categorie');
@@ -55,7 +59,7 @@ class PostController extends Controller
         $Post->slug="test";
 
         $Post->description=$request->input('Discription');
-        $Post->image=$request->input('image');
+        $Post->image=$request->file('image')->getClientOriginalName();
         $Post->publish=$request->input('Publish');
         $Post->user_id=11;
 
@@ -81,7 +85,7 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit( $post)
     {       $posts = Post::all();
         $categories = Categorie::all();
         $tags = Tag::all();

@@ -28,6 +28,8 @@
                     <tr>
                         <th class="border border-slate-300 ..."> Title </th>
                         <th class="border border-slate-300 ..."> categorie </th>
+                        <!-- <th class="border border-slate-300 ..."> image </th> -->
+
                         <th class="border border-slate-300 ..."> tages </th>
                         <th class="border border-slate-300 ..."> publish </th>
                         <th class="border border-slate-300 ..."> create date </th>
@@ -40,14 +42,18 @@
                 <tr>
                     <th class="border border-slate-300 ..."> {{ $Poste -> title }} </th>
                     <th class="border border-slate-300 ..."> {{ $Poste ->categorie_id }}</th>
+                  <th class="border border-slate-300 ..."> {{ $Poste -> title }} </th>
+                    <!-- <th class="border border-slate-300 ...">  <img src='{{ asset("./storage/public/images/".$Poste->image) }}' width= '50' height='50' class="img img-responsive" /></th>
+                    <img src="./storage/public/images/{{$Poste->image }}"  > -->
                     <th class="border border-slate-300 ..."> {{ $Poste -> tag_id }}</th>
                     <th class="border border-slate-300 ..."> {{ $Poste -> publish }}</th>
 
                     <th class="border border-slate-300 ...">{{ $Poste ->created_at }} </th>
                     <th class="border border-slate-300 ...">
                                                      
-                            <a href=" {{url('/edite/'.$Poste -> id)}} " name="Update" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5">Update </a>
-                           <form method="post" action="{{route('posts.destroy',$Poste->id)}}">
+                           <form method="post" action="{{route('posts.destroy',$Poste->id)}}">          
+                             <a href=" {{url('edite/'.$Poste -> id)}} " name="Update" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5">Update </a>
+
                             @method('delete')
                             @csrf                              
                               <button type="submit"  onclick="return confirm('are you sure')" name="delete" class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5">delete </button>

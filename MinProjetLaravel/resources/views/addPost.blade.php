@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="w-full flex flex-col justify-center items-center mt-9 ">
-    <form action="{{ url('/TablePost') }}" method="POST"  id="step"  class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 py-8">
+    <form action="{{ url('/TablePost') }}" method="POST"  id="step"  class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 py-8" enctype="multipart/form-data" >
     {{csrf_field()}}
   
         <h1 class="text-center font-bold text-xl m-5 text-blue-500"> Add New Poste  </h1>
@@ -18,11 +18,11 @@
         <h1 class="text-center font-bold text-xl m-5 text-blue-500">Step 1</h1>
         <div  class=" font-bold text-xl ">
             <label for="title" class=" text-gray-700 text-sm font-bold mb-2">Title</label>
-            <input type="text" name ="title" id="title" class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline" onkeypress="slug()">
+            <input type="text" name ="title" id="title" class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline">
         </div>
         <div>
             <label for="Slug">Slug</label>
-            <input type="text" name ="slug" id="slug" class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline" disabled>
+            <input type="text" name ="slug" id="slug"  class="shadow  border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline" disabled>
         </div>
         <div>
             <label for="title"  class=" text-gray-700 text-sm font-bold mb-2">Categorie</label>
@@ -104,21 +104,42 @@ document.getElementById('step1').hidden=false;
 
 
 }
-function convertToSlug(Text) {
-  return Text.toLowerCase()
-             .replace(/[^\w ]+/g, '')
-             .replace(/ +/g, '-');
-}
-function slug(){
-  return  document.getElementById('slug').innerText=convertToSlug('title') ;
-
-}
-function validation(){
-    if(document.getElementById('title').value!=""||document.getElementById('Categorie').value!=""||document.getElementById('tag').value!=""){
-        document.getElementById('nextBtn').disabled = true;
+new Vue({
+  el: '#post',
+  data: {
+    title: "Gõ thử tiếng Việt có dấu",
+  },
+  computed: {
+    slug: function() {
+      var slug = this.sanitizeTitle(this.title);
+      return slug;
     }
+  },
+  methods: {
+    sanitizeTitle: function(title) {
+      var slug = "";
+      // Change to lower case
+      var titleLower = title.toLowerCase();
+      // Letter "e"
+      slug = titleLower.replace(/e|é|è|ẽ|ẻ|ẹ|ê|ế|ề|ễ|ể|ệ/gi, 'e');
+      // Letter "a"
+      slug = slug.replace(/a|á|à|ã|ả|ạ|ă|ắ|ằ|ẵ|ẳ|ặ|â|ấ|ầ|ẫ|ẩ|ậ/gi, 'a');
+      // Letter "o"
+      slug = slug.replace(/o|ó|ò|õ|ỏ|ọ|ô|ố|ồ|ỗ|ổ|ộ|ơ|ớ|ờ|ỡ|ở|ợ/gi, 'o');
+      // Letter "u"
+      slug = slug.replace(/u|ú|ù|ũ|ủ|ụ|ư|ứ|ừ|ữ|ử|ự/gi, 'u');
+      // Letter "d"
+      slug = slug.replace(/đ/gi, 'd');
+      // Trim the last whitespace
+      slug = slug.replace(/\s*$/g, '');
+      // Change whitespace to "-"
+      slug = slug.replace(/\s+/g, '-');
+      
+      return slug;
+    }
+  }
+});
 
-}
 </script>
 </body>
 </html>
